@@ -1,0 +1,15 @@
+# Runtime packages for local MMSegmentation inference.
+# Do not install automatically from this file unless you have confirmed your OpenMMLab environment plan.
+
+torch
+torchvision
+openmim
+mmengine
+mmcv
+mmsegmentation
+numpy
+Pillow
+opencv-python
+PyYAML
+tqdm
+ftfy

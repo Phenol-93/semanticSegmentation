@@ -1,0 +1,117 @@
+# Class definitions and remapping rules for pretrained Cityscapes inference.
+# This project does not train a model. The mapping below only converts
+# Cityscapes pretrained predictions into this project's 9-class format.
+
+cityscapes_classes:
+  - id: 0
+    name: road
+  - id: 1
+    name: sidewalk
+  - id: 2
+    name: building
+  - id: 3
+    name: wall
+  - id: 4
+    name: fence
+  - id: 5
+    name: pole
+  - id: 6
+    name: traffic light
+  - id: 7
+    name: traffic sign
+  - id: 8
+    name: vegetation
+  - id: 9
+    name: terrain
+  - id: 10
+    name: sky
+  - id: 11
+    name: person
+  - id: 12
+    name: rider
+  - id: 13
+    name: car
+  - id: 14
+    name: truck
+  - id: 15
+    name: bus
+  - id: 16
+    name: train
+  - id: 17
+    name: motorcycle
+  - id: 18
+    name: bicycle
+
+project_classes:
+  - id: 0
+    name: sky
+    chinese_name: 天空
+    palette: [70, 130, 180]
+  - id: 1
+    name: road
+    chinese_name: 道路
+    palette: [128, 64, 128]
+  - id: 2
+    name: lane_marking
+    chinese_name: 车道线
+    palette: [255, 255, 255]
+    note: Cityscapes pretrained semantic segmentation models do not provide a stable lane_marking class, so this class is usually absent in remapped predictions.
+  - id: 3
+    name: vehicle
+    chinese_name: 车辆
+    palette: [0, 0, 142]
+  - id: 4
+    name: vegetation
+    chinese_name: 树木/绿化
+    palette: [107, 142, 35]
+  - id: 5
+    name: building
+    chinese_name: 建筑
+    palette: [70, 70, 70]
+  - id: 6
+    name: pole
+    chinese_name: 路灯杆/杆状物/交通小设施
+    palette: [153, 153, 153]
+  - id: 7
+    name: sidewalk
+    chinese_name: 人行道/路缘
+    palette: [244, 35, 232]
+  - id: 8
+    name: person
+    chinese_name: 人
+    palette: [220, 20, 60]
+  - id: 255
+    name: ignore
+    chinese_name: 忽略区域
+    palette: [0, 0, 0]
+
+cityscapes_to_project:
+  0: 1   # road -> road
+  1: 7   # sidewalk -> sidewalk
+  2: 5   # building -> building
+  3: 5   # wall -> building
+  4: 5   # fence -> building
+  5: 6   # pole -> pole
+  6: 6   # traffic light -> pole
+  7: 6   # traffic sign -> pole
+  8: 4   # vegetation -> vegetation
+  9: 4   # terrain -> vegetation
+  10: 0  # sky -> sky
+  11: 8  # person -> person
+  12: 8  # rider -> person
+  13: 3  # car -> vehicle
+  14: 3  # truck -> vehicle
+  15: 3  # bus -> vehicle
+  16: 3  # train -> vehicle
+  17: 3  # motorcycle -> vehicle
+  18: 3  # bicycle -> vehicle
+
+ignore_index: 255
+
+notes:
+  lane_marking: >
+    The project keeps lane_marking as class id 2 for a stable output schema,
+    but Cityscapes pretrained semantic segmentation models normally do not
+    output lane markings as an independent semantic class. Lane markings are
+    likely to be predicted as road, so remapping from Cityscapes will usually
+    not produce class id 2.
